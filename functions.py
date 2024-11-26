@@ -42,5 +42,19 @@ def translate_text(target: str, text: str) -> dict:
 
 
 
-
+def create_flashcard(englishw, chinesew, sentence, api_key):
+    url = "https://api.mochicard.com/create_flashcard"
+    data = {
+        'front': englishw,
+        'back': f"{chinesew} - {sentence}",
+        'tags': ['English-Chinese']
+    }
+    headers = {
+        'Authorization': f"Bearer {api_key}"
+    }
+    response = requests.post(url, json=data, headers=headers)
+    if response.status_code == 201:
+        return response.json()
+    else:
+        raise Exception(f"Mochicard API error: {response.text}")
 
