@@ -8,10 +8,9 @@
     #(this may be more of a form intake thing on the html side)
     #takes input and preps it to be sent to Google Translate API translate method
     #stores input word as a global variable
-def get_input(text):
-	if text:
-		return text
-	return None
+def user_input():
+    user_input = input("Please enter the character(s) that you would like to create a flashcard for: ")
+    return user_input
 
 # translating the text that the user inputs
 def translate_text(target: str, text: str) -> dict:
