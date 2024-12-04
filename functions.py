@@ -61,4 +61,3 @@ def create_flashcard(englishw, chinesew, sentence, api_key):
         return response.json()
     else:
         raise Exception(f"Mochicard API error: {response.text}")
-
