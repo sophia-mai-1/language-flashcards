@@ -24,8 +24,15 @@ def get_translation(chinese_text):
         return f"Error: {e}"
 
 #defintion of the translated word
-def get_definition(defintion):
-    word = defintion[0]
+import urllib.parse
+
+def get_definition(definition):
+    word = definition[0]
+    encoded_word = urllib.parse.quote(word)
+
+    if " " in word:
+        return ("defintion of English translation not available")
+
     try:
         conn = http.client.HTTPSConnection("wordsapiv1.p.rapidapi.com")
 
@@ -34,7 +41,7 @@ def get_definition(defintion):
             'x-rapidapi-host': "wordsapiv1.p.rapidapi.com"
         }
 
-        conn.request("GET", f"/words/{word}/definitions", headers=headers)
+        conn.request("GET", f"/words/{encoded_word}/definitions", headers=headers)
 
         res = conn.getresponse()
         if res.status == 200:
