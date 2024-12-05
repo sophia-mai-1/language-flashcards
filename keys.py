@@ -1,1 +1,1 @@
-GOOG_API_KEY=adskljflksdf
+WORDS_API_KEY = "bff2165386msh58f978f321155acp13aaefjsn809b6cdc6563"

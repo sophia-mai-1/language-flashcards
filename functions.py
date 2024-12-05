@@ -1,7 +1,10 @@
 #importing all necessary APIs
 import requests
+import http.client
+import requests
 import pinyin
 import pinyin.cedict
+from keys import WORDS_API_KEY
     
 
 # translating the text that the user inputs
@@ -20,7 +23,28 @@ def get_translation(chinese_text):
     except Exception as e:
         return f"Error: {e}"
 
-# def userInput():
+def get_definition(defintion):
+    word = defintion[0]
+    try:
+        conn = http.client.HTTPSConnection("wordsapiv1.p.rapidapi.com")
+
+        headers = {
+            'x-rapidapi-key': WORDS_API_KEY,
+            'x-rapidapi-host': "wordsapiv1.p.rapidapi.com"
+        }
+
+        # Correct endpoint
+        conn.request("GET", f"/words/{word}/definitions", headers=headers)
+
+        res = conn.getresponse()
+        data = res.read()
+
+        print(data.decode("utf-8"))
+
+    except Exception as e:
+            return f"Error: {e}"
+
+        # def userInput():
     #prompts user to input word that they want to convert to flashcard
 
     #(this may be more of a form intake thing on the html side)
@@ -37,6 +61,9 @@ def main():
 
     translation_output = get_translation(chinese_text)
     print(f"Translation: {translation_output}")
+
+    definition_output = get_definition(translation_output)
+    print(f"Definition: {definition_output}")
 
 
 if __name__ == "__main__":
