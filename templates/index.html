@@ -1,13 +1,17 @@
-{% extends "base.html" %}
-
-{% block content %}
-    <head>
-        <title> Flashcards</title>
-    </head>
-    <body>
-        <h2>Welcome!</h2>
-        <p> Thanks for checking out this site. Input enlish words below and click "Generate" to create
-        Chinese flashcards to help you study!</p>
-    </body>
-    </html>
-{% endblock %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Flashcard Generator</title>
+</head>
+<body>
+    <h1>Chinese Flashcard Generator</h1>
+    <form method="POST">
+        <label for="chinese_text">Enter Chinese Text:</label>
+        <input type="text" id="chinese_text" name="chinese_text" required>
+        <button type="submit">Generate Flashcard</button>
+    </form>
+    {% if error %}
+        <p style="color: red;">{{ error }}</p>
+    {% endif %}
+</body>
+</html>
