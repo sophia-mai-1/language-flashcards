@@ -1,13 +1,12 @@
 #importing all necessary APIs
-import requests
 import http.client
-import requests
+import json
 import pinyin
 import pinyin.cedict
 from keys import WORDS_API_KEY
     
 
-# translating the text that the user inputs
+# getting pinyin of the text that the user inputs
 def get_pinyin(chinese_text):
     try:
         pinyin_result = pinyin.get(chinese_text)
@@ -15,6 +14,7 @@ def get_pinyin(chinese_text):
     except Exception as e:
         return f"Error: {e}"
     
+# getting translation of the text that the user inputs
 
 def get_translation(chinese_text):
     try:
@@ -23,6 +23,7 @@ def get_translation(chinese_text):
     except Exception as e:
         return f"Error: {e}"
 
+#defintion of the translated word
 def get_definition(defintion):
     word = defintion[0]
     try:
@@ -33,16 +34,24 @@ def get_definition(defintion):
             'x-rapidapi-host': "wordsapiv1.p.rapidapi.com"
         }
 
-        # Correct endpoint
         conn.request("GET", f"/words/{word}/definitions", headers=headers)
 
         res = conn.getresponse()
-        data = res.read()
+        if res.status == 200:
+            data = res.read()
+            response = json.loads(data.decode("utf-8"))  # Parse the JSON response
 
-        print(data.decode("utf-8"))
+            # Extract and format definitions
+            definitions = response.get("definitions", [])
+            if definitions:
+                return [f"({d['partOfSpeech']}) {d['definition']}" for d in definitions]
+            else:
+                return ["No definitions found."]
+        else:
+            return [f"Error: {res.status} {res.reason}"]
 
     except Exception as e:
-            return f"Error: {e}"
+        return [f"Error: {e}"]
 
         # def userInput():
     #prompts user to input word that they want to convert to flashcard
