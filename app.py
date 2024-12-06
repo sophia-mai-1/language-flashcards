@@ -1,6 +1,8 @@
 from flask import Flask, render_template, request, redirect, url_for
 from functions import get_pinyin, get_translation, get_definition
 
+#IMPORTANT: on our end, this file only runs using the command "python3 app.py"
+#we're not sure why, but it's the only way that we've gotten it to work.
 app = Flask(__name__)
 
 @app.route('/')
