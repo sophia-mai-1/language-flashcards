@@ -5,11 +5,22 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Interactive Flashcard</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
     <style>
+        body {
+            background-color: #e5f6f6;
+            font-family: 'Poppins', sans-serif;
+            display: flex;
+            flex-direction: column; /* Make the body a column flex container */
+            justify-content: flex-start; /* Align content to the top */
+            margin: 0;
+            min-height: 100vh; /* Ensures the body takes at least the full height of the viewport */
+        }
+
         /* flashcard container */
         .flashcard {
-            width: 400px;
-            height: 600px;
+            width: 500px;
+            height: 550px;
             perspective: 1000px;
             margin: auto;
         }
@@ -20,7 +31,7 @@
             width: 100%;
             height: 100%;
             text-align: center;
-            transition: transform 0.8s;
+            transition: transform 0.5s;
             transform-style: preserve-3d;
             cursor: pointer;
         }
@@ -35,7 +46,7 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            border: 1px solid #ddd;
+            border: 3px solid #1c0e5a;
             border-radius: 10px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
         }
@@ -47,25 +58,39 @@
         .flashcard-back {
             background-color: #f1f7fb;
             transform: rotateY(180deg);
-            padding: 30px; 
+            padding: 30px;
             display: flex;
             justify-content: center;
             align-items: center;
-            border: 1px solid #ddd;
+            border: 3px solid #1c0e5a;
             border-radius: 10px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
         }
-
 
         /* flip effect */
         .flashcard.flipped .flashcard-inner {
             transform: rotateY(180deg);
         }
+
+        .container {
+            flex: 1; /* Allows the container to grow and push the footer to the bottom */
+            text-align: center;
+        }
+
+        footer {
+            text-align: center;
+            padding: 10px;
+            background-color: #1c0e5a;
+            color: white;
+            width: 100%;
+            position: relative; /* Ensures footer is not fixed or absolute */
+            bottom: 0;
+        }
     </style>
 </head>
-<body class="bg-light">
+<body class="body">
     <div class="container py-5 text-center">
-        <h1>Click to flip the flashcard!</h1>
+        <h1 style="padding-bottom: 25px">Click to flip the flashcard!</h1>
         <div class="flashcard" id="flashcard">
             <div class="flashcard-inner">
                 <!-- front of flashcard -->
@@ -77,7 +102,7 @@
                     <div>
                         <p class="fs-4"><strong>Pinyin:</strong> {{ pinyin }}</p>
                         <p class="fs-4"><strong>Translation:</strong> {{ translation }}</p>
-                        <p class="fs-4"><strong>Defintion:</strong> {{ definition }}</p>
+                        <p class="fs-4"><strong>Definition:</strong> {{ definition }}</p>
                     </div>
                 </div>
             </div>
@@ -92,5 +117,9 @@
             flashcard.classList.toggle('flipped');
         });
     </script>
+
+    <footer>
+        Made using Words API and Pinyin API by Sophia and Stephen
+    </footer>
 </body>
 </html>
